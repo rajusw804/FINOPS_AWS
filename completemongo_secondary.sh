@@ -17,6 +17,7 @@ UBUNTU_VERSION="jammy"  # Change if using another version, e.g., focal
 
 # Function to install MongoDB
 install_mongodb() {
+    echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
     echo "Updating package index..."
     sudo apt update
 
