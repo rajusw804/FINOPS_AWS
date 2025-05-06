@@ -32,7 +32,6 @@ install_mongodb() {
     echo "Installing MongoDB..."
     sudo apt install -y mongodb-org mongodb-mongosh
     sudo sed -i '/^#replication:/c\replication:\n  replSetName: myReplicaSet' /etc/mongod.conf
-	sudo sed -i '/^#security:/c\security:\n  authorization: enabled' /etc/mongod.conf
 }
 
 # Start and enable MongoDB service
@@ -67,12 +66,6 @@ setup_directories() {
     sudo chown -R "$MONGO_USER":"$MONGO_GROUP" "$MONGO_DIR"
     sudo chown -R "$MONGO_USER":"$MONGO_GROUP" "$MONGO_LOG_DIR"
 }
-
-# Initialize Replica Set
-#initialize_replica_set() {
-#    echo "Initializing Replica Set..."
-#    mongosh --eval "rs.initiate({ _id: '$REPLICA_SET_NAME', members: [{ _id: 0, host: '127.0.0.1:27017' }] })"
-#}
 
 # Starting MongoDB as root (for testing only)
 start_mongodb_as_root() {
