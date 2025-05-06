@@ -32,6 +32,7 @@ install_mongodb() {
     echo "Installing MongoDB..."
     sudo apt install -y mongodb-org mongodb-mongosh
     sudo sed -i '/^#replication:/c\replication:\n  replSetName: myReplicaSet' /etc/mongod.conf
+	sudo sed -i '/^#security:/c\security:\n  authorization: enabled' /etc/mongod.conf
 }
 
 # Start and enable MongoDB service
@@ -86,7 +87,7 @@ main() {
     setup_mongodb_service
     create_mongo_user
     setup_directories
-    initialize_replica_set
+    #initialize_replica_set
 
     # Optionally start MongoDB as root for testing purposes
     echo "Do you want to start MongoDB as root for testing? [y/N]"
