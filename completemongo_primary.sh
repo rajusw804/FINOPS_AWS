@@ -75,7 +75,7 @@ initialize_replica_set() {
         _id: '$REPLICA_SET_NAME', 
         members: [
             { _id: 0, host: '192.168.61.29:27017' },
-            { _id: 1, host: '192.168.61.61:27017' }
+            { _id: 1, host: '192.168.61.66:27017' }
         ]
     })"
 }
