@@ -31,6 +31,7 @@ install_mongodb() {
 
     echo "Installing MongoDB..."
     sudo apt install -y mongodb-org mongodb-mongosh
+    sudo sed -i '/^#replication:/c\replication:\n  replSetName: myReplicaSet' /etc/mongod.conf
 }
 
 # Start and enable MongoDB service
