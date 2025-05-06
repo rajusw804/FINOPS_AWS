@@ -32,7 +32,7 @@ install_mongodb() {
     echo "Installing MongoDB..."
     sudo apt install -y mongodb-org mongodb-mongosh
     sudo sed -i '/^#replication:/c\replication:\n  replSetName: myReplicaSet' /etc/mongod.conf
-	sudo sed -i '/^#security:/c\security:\n  authorization: enabled' /etc/mongod.conf
+    sudo sed -i '/^#security:/c\security:\n  authorization: enabled' /etc/mongod.conf
 }
 
 # Start and enable MongoDB service
@@ -71,7 +71,13 @@ setup_directories() {
 # Initialize Replica Set
 initialize_replica_set() {
     echo "Initializing Replica Set..."
-    mongosh --eval "rs.initiate({ _id: '$REPLICA_SET_NAME', members: [{ _id: 0, host: '127.0.0.1:27017' }] })"
+    mongosh --host 192.168.61.29 --eval "rs.initiate({ 
+        _id: '$REPLICA_SET_NAME', 
+        members: [
+            { _id: 0, host: '192.168.61.29:27017' },
+            { _id: 1, host: '192.168.61.61:27017' }
+        ]
+    })"
 }
 
 # Starting MongoDB as root (for testing only)
@@ -87,7 +93,7 @@ main() {
     setup_mongodb_service
     create_mongo_user
     setup_directories
-    #initialize_replica_set
+    initialize_replica_set
 
     # Optionally start MongoDB as root for testing purposes
     echo "Do you want to start MongoDB as root for testing? [y/N]"
